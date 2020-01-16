@@ -1,10 +1,15 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import Header from "./components/Header";
+import Addtodo from "./components/Addtodo";
+import Todos from "./components/Todos";
+import "./App.css";
 
 function App() {
   return (
     <div className="container">
-      <h1>Hello World</h1>
+      <Header />
+      <Addtodo />
+      <Todos />
     </div>
   );
 }
