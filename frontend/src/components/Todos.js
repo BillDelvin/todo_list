@@ -8,7 +8,7 @@ class Todos extends Component {
       <Consumer>
         {value => {
           const { todos } = value;
-          return todos.map(todos => <Todo todo={todos} key={todos.id}></Todo>);
+          return todos.map(todos => <Todo todo={todos} key={todos._id}></Todo>);
         }}
       </Consumer>
     );

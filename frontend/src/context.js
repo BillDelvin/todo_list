@@ -7,7 +7,7 @@ const reducer = (prevState, action) => {
     case "TOGGLE":
       return {
         todos: prevState.todos.map(t => {
-          if (t.id === action.payload) {
+          if (t._id === action.payload) {
             t.complete = !t.complete;
           }
           return t;
@@ -16,7 +16,7 @@ const reducer = (prevState, action) => {
 
     case "REMOVE":
       return {
-        todos: prevState.todos.filter(todo => todo.id !== action.payload)
+        todos: prevState.todos.filter(todo => todo._id !== action.payload)
       };
 
     case "ADD":
@@ -32,13 +32,15 @@ const reducer = (prevState, action) => {
 export class Provider extends Component {
   state = {
     todos: [],
-    dispatch: action => this.setState(prevState => reducer(prevState, action))
+    dispatch: action => {
+      this.setState(prevState => reducer(prevState, action));
+    }
   };
 
   componentDidMount() {
     axios.get("/todos").then(
       res => this.setState({ todos: res.data }),
-      err => {console.log(err)}
+      err => console.log(err)
     );
   }
 

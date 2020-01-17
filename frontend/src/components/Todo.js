@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Consumer } from "../context";
+import Axios from "axios";
 
 class Todo extends Component {
   style = () => {
@@ -8,15 +9,19 @@ class Todo extends Component {
   };
 
   toggle = (id, dispatch) => {
-    dispatch({ type: "TOGGLE", payload: id });
+    Axios.patch(`/todos/${id}`, {
+      complete: !this.props.todo.complete
+    }).then(res => dispatch({ type: "TOGGLE", payload: id }));
   };
 
   remove = (id, dispatch) => {
-    dispatch({ type: "REMOVE", payload: id });
+    Axios.delete(`/todos/${id}`).then(() =>
+      dispatch({ type: "REMOVE", payload: id })
+    );
   };
 
   render() {
-    const { title, id } = this.props.todo;
+    const { complete, title, _id } = this.props.todo;
     return (
       <Consumer>
         {value => {
@@ -28,13 +33,14 @@ class Todo extends Component {
             >
               <i
                 className="far fa-times-circle fa-sm float-left m-1 text-danger"
-                onClick={this.remove.bind(this, id, dispatch)}
+                onClick={this.remove.bind(this, _id, dispatch)}
               ></i>
-              {title}
+              {title}sss
               <input
                 type="checkbox"
+                checked={complete}
                 className="m-2 float-right"
-                onChange={this.toggle.bind(this, id, dispatch)}
+                onChange={this.toggle.bind(this, _id, dispatch)}
               />
             </h3>
           );
