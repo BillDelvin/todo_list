@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 const Context = React.createContext();
 const reducer = (prevState, action) => {
@@ -30,13 +31,17 @@ const reducer = (prevState, action) => {
 
 export class Provider extends Component {
   state = {
-    todos: [
-      { id: 1, title: "check emails", complete: false },
-      { id: 2, title: "check voice emails", complete: false },
-      { id: 3, title: "check report emails", complete: false }
-    ],
+    todos: [],
     dispatch: action => this.setState(prevState => reducer(prevState, action))
   };
+
+  componentDidMount() {
+    axios.get("/todos").then(
+      res => this.setState({ todos: res.data }),
+      err => {console.log(err)}
+    );
+  }
+
   render() {
     return (
       <Context.Provider value={this.state}>
