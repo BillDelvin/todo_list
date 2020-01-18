@@ -10,7 +10,7 @@ class Todo extends Component {
 
   toggle = (id, dispatch) => {
     Axios.patch(`/todos/${id}`, {
-      complete: !this.props.todo.complete
+      complete: !this.props.todo.complete //this part
     }).then(res => dispatch({ type: "TOGGLE", payload: id }));
   };
 

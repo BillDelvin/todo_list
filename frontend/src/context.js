@@ -38,11 +38,13 @@ export class Provider extends Component {
   };
 
   componentDidMount() {
-    axios.get("/todos").then(
+    axios.get("/todo").then(
       res => this.setState({ todos: res.data }),
       err => console.log(err)
     );
   }
+
+  //penggunaan context
 
   render() {
     return (
