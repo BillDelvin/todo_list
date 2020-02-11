@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const todoRouters = require('./router/todo')
+const todosRouters = require("./router/todos");
+var cors = require("cors");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const db = "mongodb://localhost:27017/myapp";
 
@@ -22,13 +24,13 @@ mongoose
 
 // const Todo = mongoose.model("todo", todoSchema);
 
-app.get("/todos", (req, res) => {
-  Todo.find().then(todo => {
-    res.json(todo);
-  });
-});
+// app.get("/todos", (req, res) => {
+//   Todo.find().then(todo => {
+//     res.json(todo);
+//   });
+// });
 
-app.use('/todo',todoRouters )
+app.use("/todos", todosRouters);
 
 // app.post("/todos", (req, res) => {
 //   const newTodo = new Todo({
@@ -37,9 +39,9 @@ app.use('/todo',todoRouters )
 //   newTodo.save().then(todo => res.json(todo));
 // });
 
-app.delete("/todos/:id", (req, res) => {
-  Todo.findByIdAndDelete(req.params.id).then(() => res.json({ remove: true }));
-});
+// app.delete("/todos/:id", (req, res) => {
+//   Todo.findByIdAndDelete(req.params.id).then(() => res.json({ remove: true }));
+// });
 
 app.listen(5000, () => {
   console.log("server is running at port 5000");
