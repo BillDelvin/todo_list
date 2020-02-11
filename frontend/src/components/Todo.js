@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Consumer } from "../context";
-import Axios from "axios";
+import Axios from "../axios";
 
 class Todo extends Component {
   style = () => {
@@ -9,13 +9,13 @@ class Todo extends Component {
   };
 
   toggle = (id, dispatch) => {
-    Axios.patch(`/todos/${id}`, {
+    Axios.patch(`todos/${id}`, {
       complete: !this.props.todo.complete //this part
     }).then(res => dispatch({ type: "TOGGLE", payload: id }));
   };
 
   remove = (id, dispatch) => {
-    Axios.delete(`/todos/${id}`).then(() =>
+    Axios.delete(`todos/${id}`).then(() =>
       dispatch({ type: "REMOVE", payload: id })
     );
   };
