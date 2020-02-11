@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "./axios";
 
 const Context = React.createContext();
 const reducer = (prevState, action) => {
@@ -38,7 +38,7 @@ export class Provider extends Component {
   };
 
   componentDidMount() {
-    axios.get("/todo").then(
+    axios.get("todos").then(
       res => this.setState({ todos: res.data }),
       err => console.log(err)
     );
